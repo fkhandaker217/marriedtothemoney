@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Financial Tools — Married to the Money</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #FDF4FA;
+      --white: #ffffff;
+      --purple: #7C3AED;
+      --purple-mid: #A855F7;
+      --purple-light: #F3E8FF;
+      --pink: #EC4899;
+      --pink-hot: #F472B6;
+      --pink-light: #FCE7F3;
+      --text: #3B0764;
+      --text-mid: #6B21A8;
+      --text-soft: #A78BCA;
+      --border: #F3C6EC;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.6; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 48px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 0.5px solid var(--border);
+    }
+    .logo {
+      font-family: var(--font-display);
+      font-size: 20px; font-weight: 600;
+      color: var(--purple); letter-spacing: -0.3px;
+      text-decoration: none;
+    }
+    .logo span { color: var(--pink); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-size: 14px; color: var(--text-soft);
+      text-decoration: none; font-weight: 400; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--pink); }
+    .nav-links a.active { color: var(--pink); font-weight: 500; }
+    .nav-cta {
+      background: var(--pink); color: white;
+      font-family: var(--font-body); font-size: 14px; font-weight: 500;
+      padding: 10px 22px; border-radius: 28px; border: none;
+      cursor: pointer; transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: #db2777; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .page-hero {
+      padding: 64px 48px 52px;
+      background: linear-gradient(160deg, #FDF2F8 0%, #F5D0FE 50%, #FBE8F6 100%);
+      text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 11px; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--pink); background: var(--pink-light);
+      padding: 6px 16px; border-radius: 20px; margin-bottom: 20px;
+    }
+    .page-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(30px, 4vw, 48px); font-weight: 600; line-height: 1.2;
+      color: var(--text); margin-bottom: 12px;
+    }
+    .page-hero h1 span { color: var(--pink); font-style: italic; }
+    .page-hero p {
+      font-size: 16px; color: var(--text-mid); font-weight: 300;
+      max-width: 440px; margin: 0 auto; line-height: 1.75;
+    }
+
+    /* ── TOOLS GRID ── */
+    .tools-section { padding: 48px 48px 0; max-width: 1000px; margin: 0 auto; }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 26px; font-weight: 600; color: var(--text);
+      margin-bottom: 6px;
+    }
+    .section-subtitle { font-size: 15px; color: var(--text-soft); margin-bottom: 28px; }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .tool-card {
+      background: white; border: 0.5px solid var(--border);
+      border-radius: 20px; padding: 28px 24px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex; flex-direction: column;
+    }
+    .tool-card:hover { transform: translateY(-4px); box-shadow: 0 10px 32px rgba(168,85,247,0.1); }
+    .tool-icon-wrap {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; margin-bottom: 16px; flex-shrink: 0;
+    }
+    .tool-title {
+      font-family: var(--font-display);
+      font-size: 18px; font-weight: 600; color: var(--text);
+      margin-bottom: 8px;
+    }
+    .tool-desc {
+      font-size: 13px; color: var(--text-soft); line-height: 1.65;
+      flex: 1; margin-bottom: 20px;
+    }
+    .tool-btn {
+      display: inline-block; font-size: 13px; font-weight: 500;
+      color: var(--purple); text-decoration: none;
+      border: 1.5px solid var(--purple-light);
+      padding: 9px 18px; border-radius: 24px;
+      transition: all 0.2s; width: fit-content;
+    }
+    .tool-btn:hover { background: var(--purple); color: white; border-color: var(--purple); }
+
+    /* ── FEATURED TOOL (CALCULATOR) ── */
+    .calculator-section {
+      max-width: 1000px; margin: 48px auto 0; padding: 0 48px;
+    }
+    .calculator-label {
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--text-soft); font-weight: 500; margin-bottom: 12px;
+    }
+    .calculator-card {
+      background: white; border: 0.5px solid var(--border);
+      border-radius: 20px; overflow: hidden;
+      display: grid; grid-template-columns: 1fr 1fr;
+    }
+    .calc-left {
+      padding: 36px 32px;
+      background: linear-gradient(160deg, #FDF2F8, #F5D0FE);
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .calc-left h3 {
+      font-family: var(--font-display);
+      font-size: 22px; font-weight: 600; color: var(--text);
+      margin-bottom: 10px; line-height: 1.3;
+    }
+    .calc-left p {
+      font-size: 14px; color: var(--text-soft); line-height: 1.7; margin-bottom: 24px;
+    }
+    .calc-right { padding: 36px 32px; }
+    .calc-right h4 {
+      font-family: var(--font-display);
+      font-size: 16px; color: var(--text); margin-bottom: 20px;
+    }
+    .calc-field { margin-bottom: 16px; }
+    .calc-field label {
+      display: block; font-size: 12px; color: var(--text-soft);
+      font-weight: 500; margin-bottom: 6px; letter-spacing: 0.3px;
+    }
+    .calc-field input {
+      width: 100%; padding: 10px 14px;
+      border: 1.5px solid var(--border); border-radius: 12px;
+      font-family: var(--font-body); font-size: 14px; color: var(--text);
+      background: var(--bg); outline: none;
+      transition: border-color 0.2s;
+    }
+    .calc-field input:focus { border-color: var(--pink); }
+    .calc-btn {
+      width: 100%; padding: 12px;
+      background: var(--pink); color: white;
+      font-family: var(--font-body); font-size: 14px; font-weight: 500;
+      border: none; border-radius: 28px; cursor: pointer;
+      transition: background 0.2s, transform 0.15s; margin-top: 4px;
+    }
+    .calc-btn:hover { background: #db2777; transform: translateY(-1px); }
+    .calc-result {
+      margin-top: 16px; padding: 16px;
+      background: var(--purple-light); border-radius: 14px;
+      text-align: center; display: none;
+    }
+    .calc-result .result-label { font-size: 12px; color: var(--text-soft); margin-bottom: 4px; }
+    .calc-result .result-num {
+      font-family: var(--font-display);
+      font-size: 28px; font-weight: 600; color: var(--purple);
+    }
+    .calc-result .result-note { font-size: 11px; color: var(--text-soft); margin-top: 6px; }
+
+    /* ── QUOTE ── */
+    .quote-section { padding: 48px 48px 0; }
+    .quote-inner {
+      border-left: 4px solid var(--pink);
+      padding: 20px 28px;
+      background: #FDF2F8;
+      border-radius: 0 14px 14px 0;
+      max-width: 700px; margin: 0 auto;
+    }
+    .quote-inner p {
+      font-family: var(--font-display);
+      font-size: 17px; font-style: italic;
+      color: var(--text-mid); line-height: 1.8;
+    }
+    .quote-inner span {
+      display: block; margin-top: 10px;
+      font-size: 13px; color: var(--pink); font-weight: 500;
+      font-family: var(--font-body);
+    }
+
+    /* ── CTA ── */
+    .cta-section { padding: 56px 48px 72px; }
+    .cta-inner {
+      background: linear-gradient(135deg, #A855F7, #EC4899);
+      border-radius: 24px; padding: 56px 40px; text-align: center;
+      max-width: 900px; margin: 0 auto;
+    }
+    .cta-inner h2 {
+      font-family: var(--font-display);
+      font-size: 34px; font-weight: 600; color: white; margin-bottom: 12px;
+    }
+    .cta-inner p {
+      font-size: 16px; color: rgba(255,255,255,0.88);
+      margin-bottom: 28px; line-height: 1.7;
+      max-width: 420px; margin-left: auto; margin-right: auto;
+    }
+    .btn-white {
+      background: white; color: var(--purple);
+      font-family: var(--font-body); font-size: 15px; font-weight: 500;
+      padding: 14px 32px; border-radius: 32px; border: none;
+      cursor: pointer; transition: transform 0.15s;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-white:hover { transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: white; border-top: 0.5px solid var(--border);
+      padding: 32px 48px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 16px; font-weight: 600; color: var(--purple);
+      text-decoration: none;
+    }
+    .footer-logo span { color: var(--pink); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 13px; color: var(--text-soft); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--pink); }
+    .footer-copy { font-size: 12px; color: var(--text-soft); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .page-hero h1 { animation: fadeUp 0.5s ease both; }
+    .page-hero p { animation: fadeUp 0.5s 0.1s ease both; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .page-hero { padding: 48px 20px 36px; }
+      .tools-section { padding: 36px 20px 0; }
+      .calculator-section { padding: 0 20px; }
+      .calculator-card { grid-template-columns: 1fr; }
+      .quote-section { padding: 36px 20px 0; }
+      .cta-section { padding: 36px 20px 56px; }
+      .cta-inner { padding: 36px 24px; }
+      footer { flex-direction: column; text-align: center; padding: 24px 20px; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="logo">Married to <span>the Money</span></a>
+    <ul class="nav-links">
+      <li><a href="courses.html">Learn</a></li>
+      <li><a href="tools.html" class="active">Tools</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="blog.html">Blog</a></li>
+    </ul>
+    <button class="nav-cta">Join the movement</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="hero-eyebrow">Free financial tools</div>
+    <h1>Know your numbers. <span>Own your future.</span></h1>
+    <p>Simple, powerful tools to help you budget, save, invest, and get out of debt — no spreadsheet degree required.</p>
+  </section>
+
+  <!-- TOOLS GRID -->
+  <section class="tools-section">
+    <div class="tools-grid">
+
+      <div class="tool-card">
+        <div class="tool-icon-wrap" style="background:#FCE7F3;">📊</div>
+        <div class="tool-title">Budget planner</div>
+        <div class="tool-desc">See exactly where your money goes every month. Enter your income and expenses and instantly know what's left to save or invest.</div>
+        <a href="#budget" class="tool-btn">Open tool →</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-icon-wrap" style="background:#F3E8FF;">🎯</div>
+        <div class="tool-title">Savings tracker</div>
+        <div class="tool-desc">Set a savings goal, a deadline, and how much you can set aside each month — and watch the math show you what's possible.</div>
+        <a href="#savings" class="tool-btn">Open tool →</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-icon-wrap" style="background:#FDF4FF;">📈</div>
+        <div class="tool-title">Wealth calculator</div>
+        <div class="tool-desc">Enter an amount, an interest rate, and a time horizon to see what your money could become if you invest it — the math is powerful.</div>
+        <a href="#wealth" class="tool-btn">Open tool →</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-icon-wrap" style="background:#FFE4E6;">💳</div>
+        <div class="tool-title">Debt payoff planner</div>
+        <div class="tool-desc">List your debts and pick a payoff strategy — avalanche or snowball — to get a clear, actionable plan to become debt free.</div>
+        <a href="#debt" class="tool-btn">Open tool →</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-icon-wrap" style="background:#FEF3C7;">🧮</div>
+        <div class="tool-title">Net worth tracker</div>
+        <div class="tool-desc">Add up your assets and subtract your debts to see your true financial picture. Knowing your number is step one to growing it.</div>
+        <a href="#networth" class="tool-btn">Open tool →</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-icon-wrap" style="background:#FCE7F3;">🏦</div>
+        <div class="tool-title">Emergency fund calculator</div>
+        <div class="tool-desc">Find out exactly how much you need in your emergency fund — and how long it will take to build it based on what you can save monthly.</div>
+        <a href="#emergency" class="tool-btn">Open tool →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FEATURED: WEALTH CALCULATOR -->
+  <section class="calculator-section" id="wealth">
+    <div class="calculator-label">Try it now — featured tool</div>
+    <div class="calculator-card">
+      <div class="calc-left">
+        <div style="font-size:48px;margin-bottom:16px;">📈</div>
+        <h3>What could your money become?</h3>
+        <p>This is the tool that changes how you think about money. Enter any amount and see what compounding interest does over time — it's why investing early matters so much.</p>
+      </div>
+      <div class="calc-right">
+        <h4>Wealth calculator</h4>
+        <div class="calc-field">
+          <label>Initial investment ($)</label>
+          <input type="number" id="principal" placeholder="e.g. 1000" min="0" />
+        </div>
+        <div class="calc-field">
+          <label>Monthly contribution ($)</label>
+          <input type="number" id="monthly" placeholder="e.g. 200" min="0" />
+        </div>
+        <div class="calc-field">
+          <label>Annual return rate (%)</label>
+          <input type="number" id="rate" placeholder="e.g. 7" min="0" max="100" />
+        </div>
+        <div class="calc-field">
+          <label>Time horizon (years)</label>
+          <input type="number" id="years" placeholder="e.g. 10" min="1" />
+        </div>
+        <button class="calc-btn" onclick="calculate()">Calculate my wealth →</button>
+        <div class="calc-result" id="result">
+          <div class="result-label">Your investment could grow to</div>
+          <div class="result-num" id="result-num">$0</div>
+          <div class="result-note">Based on compound interest — this is why starting now matters.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="quote-section">
+    <div class="quote-inner">
+      <p>"We are in the information age. You can accelerate in ways you cannot even imagine. Do not let outdated ways of thinking get in the way of what you can do and who you can be."</p>
+      <span>— Married to the Money</span>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <h2>You can afford to choose.</h2>
+      <p>Join thousands of women who decided they were done waiting — and started building instead.</p>
+      <a href="#" class="btn-white">Join the movement — it's free</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="index.html" class="footer-logo">Married to <span>the Money</span></a>
+    <div class="footer-links">
+      <a href="courses.html">Learn</a>
+      <a href="tools.html">Tools</a>
+      <a href="resources.html">Resources</a>
+      <a href="blog.html">Blog</a>
+    </div>
+    <div class="footer-copy">© 2026 Married to the Money. All rights reserved.</div>
+  </footer>
+
+  <script>
+    function calculate() {
+      const p = parseFloat(document.getElementById('principal').value) || 0;
+      const m = parseFloat(document.getElementById('monthly').value) || 0;
+      const r = (parseFloat(document.getElementById('rate').value) || 0) / 100 / 12;
+      const n = (parseFloat(document.getElementById('years').value) || 0) * 12;
+
+      if (n === 0) return;
+
+      let future = p * Math.pow(1 + r, n);
+      if (r > 0) {
+        future += m * ((Math.pow(1 + r, n) - 1) / r);
+      } else {
+        future += m * n;
+      }
+
+      const formatted = future.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+      document.getElementById('result-num').textContent = formatted;
+      document.getElementById('result').style.display = 'block';
+    }
+
+    // Allow Enter key to trigger calculation
+    document.querySelectorAll('.calc-field input').forEach(input => {
+      input.addEventListener('keydown', e => { if (e.key === 'Enter') calculate(); });
+    });
+  </script>
+
+</body>
+</html>

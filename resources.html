@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resources — Married to the Money</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #FDF4FA;
+      --white: #ffffff;
+      --purple: #7C3AED;
+      --purple-mid: #A855F7;
+      --purple-light: #F3E8FF;
+      --pink: #EC4899;
+      --pink-hot: #F472B6;
+      --pink-light: #FCE7F3;
+      --text: #3B0764;
+      --text-mid: #6B21A8;
+      --text-soft: #A78BCA;
+      --border: #F3C6EC;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.6; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 48px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 0.5px solid var(--border);
+    }
+    .logo {
+      font-family: var(--font-display);
+      font-size: 20px; font-weight: 600;
+      color: var(--purple); letter-spacing: -0.3px;
+      text-decoration: none;
+    }
+    .logo span { color: var(--pink); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-size: 14px; color: var(--text-soft);
+      text-decoration: none; font-weight: 400; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--pink); }
+    .nav-links a.active { color: var(--pink); font-weight: 500; }
+    .nav-cta {
+      background: var(--pink); color: white;
+      font-family: var(--font-body); font-size: 14px; font-weight: 500;
+      padding: 10px 22px; border-radius: 28px; border: none;
+      cursor: pointer; transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: #db2777; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .page-hero {
+      padding: 64px 48px 52px;
+      background: linear-gradient(160deg, #FDF2F8 0%, #F5D0FE 50%, #FBE8F6 100%);
+      text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 11px; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--pink); background: var(--pink-light);
+      padding: 6px 16px; border-radius: 20px; margin-bottom: 20px;
+    }
+    .page-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(30px, 4vw, 48px); font-weight: 600; line-height: 1.2;
+      color: var(--text); margin-bottom: 12px;
+    }
+    .page-hero h1 span { color: var(--pink); font-style: italic; }
+    .page-hero p {
+      font-size: 16px; color: var(--text-mid); font-weight: 300;
+      max-width: 440px; margin: 0 auto; line-height: 1.75;
+    }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      display: flex; gap: 8px; padding: 28px 48px 0;
+      flex-wrap: wrap; justify-content: center;
+    }
+    .filter-pill {
+      font-size: 13px; font-weight: 500; padding: 7px 16px;
+      border-radius: 24px; border: 1.5px solid var(--border);
+      background: white; color: var(--text-soft);
+      cursor: pointer; transition: all 0.2s; font-family: var(--font-body);
+    }
+    .filter-pill:hover { border-color: var(--pink); color: var(--pink); }
+    .filter-pill.active { background: var(--pink); color: white; border-color: var(--pink); }
+
+    /* ── FEATURED RESOURCE ── */
+    .featured-wrap { padding: 36px 48px 0; max-width: 900px; margin: 0 auto; }
+    .featured-label {
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--text-soft); font-weight: 500; margin-bottom: 12px;
+    }
+    .featured-resource {
+      background: linear-gradient(135deg, #A855F7, #EC4899);
+      border-radius: 20px; padding: 40px 36px;
+      display: flex; align-items: center; gap: 32px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .featured-resource:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(168,85,247,0.25); }
+    .featured-resource-icon { font-size: 64px; flex-shrink: 0; }
+    .featured-resource-body { flex: 1; }
+    .featured-resource-tag {
+      font-size: 10px; font-weight: 500; padding: 4px 10px; border-radius: 12px;
+      background: rgba(255,255,255,0.25); color: white;
+      display: inline-block; margin-bottom: 10px; letter-spacing: 0.5px;
+    }
+    .featured-resource-title {
+      font-family: var(--font-display);
+      font-size: 22px; font-weight: 600; color: white;
+      line-height: 1.3; margin-bottom: 8px;
+    }
+    .featured-resource-desc {
+      font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.65; margin-bottom: 18px;
+    }
+    .featured-resource-btn {
+      display: inline-block; background: white; color: var(--purple);
+      font-family: var(--font-body); font-size: 13px; font-weight: 500;
+      padding: 10px 22px; border-radius: 24px;
+      text-decoration: none; transition: transform 0.15s;
+    }
+    .featured-resource-btn:hover { transform: translateY(-1px); }
+
+    /* ── RESOURCE LIST ── */
+    .resources-section { padding: 36px 48px 0; max-width: 900px; margin: 0 auto; }
+    .section-header {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 26px; font-weight: 600; color: var(--text);
+    }
+
+    .resource-list { display: flex; flex-direction: column; gap: 10px; }
+    .resource-item {
+      display: flex; align-items: center; gap: 16px;
+      background: white; border: 0.5px solid var(--border);
+      border-radius: 14px; padding: 18px 20px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none; color: inherit;
+    }
+    .resource-item:hover { transform: translateX(4px); box-shadow: 0 4px 20px rgba(168,85,247,0.08); }
+    .res-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; flex-shrink: 0;
+    }
+    .res-info { flex: 1; }
+    .res-tag {
+      font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 10px;
+      display: inline-block; margin-bottom: 4px; letter-spacing: 0.4px;
+    }
+    .res-title { font-size: 14px; font-weight: 500; color: var(--text); }
+    .res-desc { font-size: 12px; color: var(--text-soft); margin-top: 2px; }
+    .res-arrow { color: var(--pink); font-size: 18px; flex-shrink: 0; }
+
+    /* ── PODCAST SECTION ── */
+    .podcast-section {
+      max-width: 900px; margin: 48px auto 0; padding: 0 48px;
+    }
+    .podcast-card {
+      background: white; border: 0.5px solid var(--border);
+      border-radius: 20px; padding: 32px 28px;
+      display: flex; gap: 28px; align-items: flex-start;
+    }
+    .podcast-art {
+      width: 100px; height: 100px; border-radius: 16px; flex-shrink: 0;
+      background: linear-gradient(135deg, #F5D0FE, #FCE7F3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 42px;
+    }
+    .podcast-body { flex: 1; }
+    .podcast-label {
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--text-soft); font-weight: 500; margin-bottom: 8px;
+    }
+    .podcast-title {
+      font-family: var(--font-display);
+      font-size: 20px; font-weight: 600; color: var(--text);
+      margin-bottom: 8px;
+    }
+    .podcast-desc {
+      font-size: 13px; color: var(--text-soft); line-height: 1.65; margin-bottom: 16px;
+    }
+    .podcast-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .podcast-link {
+      font-size: 12px; font-weight: 500; padding: 7px 16px;
+      border-radius: 20px; border: 1.5px solid var(--border);
+      color: var(--text-mid); text-decoration: none;
+      transition: all 0.2s;
+    }
+    .podcast-link:hover { border-color: var(--pink); color: var(--pink); }
+
+    /* ── GRANTS DIRECTORY ── */
+    .grants-section {
+      max-width: 900px; margin: 0 auto; padding: 48px 48px 0;
+    }
+    .grants-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 14px; margin-top: 20px;
+    }
+    .grant-card {
+      background: white; border: 0.5px solid var(--border);
+      border-radius: 16px; padding: 22px 20px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none; display: block; color: inherit;
+    }
+    .grant-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(236,72,153,0.1); }
+    .grant-region {
+      font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 10px;
+      display: inline-block; margin-bottom: 10px; letter-spacing: 0.5px;
+    }
+    .grant-title { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 5px; }
+    .grant-desc { font-size: 12px; color: var(--text-soft); line-height: 1.6; margin-bottom: 10px; }
+    .grant-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 0.5px solid var(--border); padding-top: 10px; margin-top: 4px;
+    }
+    .grant-update { font-size: 11px; color: var(--text-soft); }
+    .grant-arrow { font-size: 13px; color: var(--pink); }
+
+    /* ── NEWSLETTER ── */
+    .newsletter-section { padding: 48px 48px; }
+    .newsletter-inner {
+      background: linear-gradient(135deg, #A855F7, #EC4899);
+      border-radius: 24px; padding: 48px 40px; text-align: center;
+      max-width: 900px; margin: 0 auto;
+    }
+    .newsletter-inner h2 {
+      font-family: var(--font-display);
+      font-size: 30px; font-weight: 600; color: white; margin-bottom: 10px;
+    }
+    .newsletter-inner p {
+      font-size: 15px; color: rgba(255,255,255,0.88);
+      margin-bottom: 28px; line-height: 1.7;
+      max-width: 380px; margin-left: auto; margin-right: auto;
+    }
+    .newsletter-form { display: flex; gap: 10px; max-width: 420px; margin: 0 auto; }
+    .newsletter-form input {
+      flex: 1; padding: 12px 18px; border-radius: 28px; border: none;
+      font-size: 14px; font-family: var(--font-body); outline: none; color: var(--text);
+    }
+    .newsletter-form button {
+      background: var(--text); color: white;
+      font-family: var(--font-body); font-size: 14px; font-weight: 500;
+      padding: 12px 22px; border-radius: 28px; border: none;
+      cursor: pointer; transition: background 0.2s; white-space: nowrap;
+    }
+    .newsletter-form button:hover { background: #1a0533; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: white; border-top: 0.5px solid var(--border);
+      padding: 32px 48px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 16px; font-weight: 600; color: var(--purple);
+      text-decoration: none;
+    }
+    .footer-logo span { color: var(--pink); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 13px; color: var(--text-soft); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--pink); }
+    .footer-copy { font-size: 12px; color: var(--text-soft); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .page-hero h1 { animation: fadeUp 0.5s ease both; }
+    .page-hero p { animation: fadeUp 0.5s 0.1s ease both; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .page-hero { padding: 48px 20px 36px; }
+      .filter-bar { padding: 20px 20px 0; }
+      .featured-wrap { padding: 20px 20px 0; }
+      .featured-resource { flex-direction: column; gap: 16px; text-align: center; }
+      .resources-section { padding: 28px 20px 0; }
+      .podcast-section { padding: 0 20px; }
+      .podcast-card { flex-direction: column; }
+      .grants-section { padding: 36px 20px 0; }
+      .newsletter-section { padding: 36px 20px; }
+      .newsletter-inner { padding: 32px 20px; }
+      .newsletter-form { flex-direction: column; }
+      footer { flex-direction: column; text-align: center; padding: 24px 20px; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="logo">Married to <span>the Money</span></a>
+    <ul class="nav-links">
+      <li><a href="courses.html">Learn</a></li>
+      <li><a href="tools.html">Tools</a></li>
+      <li><a href="resources.html" class="active">Resources</a></li>
+      <li><a href="blog.html">Blog</a></li>
+    </ul>
+    <button class="nav-cta">Join the movement</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="hero-eyebrow">Free resources for women</div>
+    <h1>Everything you need, <span>all in one place.</span></h1>
+    <p>Guides, podcasts, funding directories, and more — all free, all built to move you forward.</p>
+  </section>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <button class="filter-pill active">All</button>
+    <button class="filter-pill">Downloads</button>
+    <button class="filter-pill">Podcast</button>
+    <button class="filter-pill">Funding & grants</button>
+    <button class="filter-pill">Reading list</button>
+    <button class="filter-pill">Community</button>
+  </div>
+
+  <!-- FEATURED RESOURCE -->
+  <div class="featured-wrap">
+    <div class="featured-label">Free download</div>
+    <a href="#" class="featured-resource">
+      <div class="featured-resource-icon">📄</div>
+      <div class="featured-resource-body">
+        <span class="featured-resource-tag">Guide · PDF</span>
+        <div class="featured-resource-title">The Money Mindset Guide</div>
+        <div class="featured-resource-desc">The guide that started it all. A deep dive into the beliefs, fears, and habits holding women back from financial freedom — and exactly how to break free from them. No fluff. No jargon. Just the truth.</div>
+        <span class="featured-resource-btn">Download free →</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- DOWNLOADS & GUIDES -->
+  <section class="resources-section">
+    <div class="section-header">
+      <h2 class="section-title">Downloads & guides</h2>
+    </div>
+    <div class="resource-list">
+
+      <a href="#" class="resource-item">
+        <div class="res-icon" style="background:#FCE7F3;">📄</div>
+        <div class="res-info">
+          <span class="res-tag" style="background:#FCE7F3;color:#BE185D;">Free PDF</span>
+          <div class="res-title">The Money Mindset Guide</div>
+          <div class="res-desc">Unpack what's keeping you stuck and how to rebuild your relationship with money.</div>
+        </div>
+        <div class="res-arrow">→</div>
+      </a>
+
+      <a href="#" class="resource-item">
+        <div class="res-icon" style="background:#F3E8FF;">📋</div>
+        <div class="res-info">
+          <span class="res-tag" style="background:#F3E8FF;color:#7C3AED;">Free Template</span>
+          <div class="res-title">Monthly budget template</div>
+          <div class="res-desc">A simple, fillable spreadsheet to track income, expenses, and savings goals every month.</div>
+        </div>
+        <div class="res-arrow">→</div>
+      </a>
+
+      <a href="#" class="resource-item">
+        <div class="res-icon" style="background:#FDF4FF;">🗺️</div>
+        <div class="res-info">
+          <span class="res-tag" style="background:#FDF4FF;color:#A21CAF;">Free Guide</span>
+          <div class="res-title">Your first investment roadmap</div>
+          <div class="res-desc">A step-by-step guide to opening your first investment account and making your first trade.</div>
+        </div>
+        <div class="res-arrow">→</div>
+      </a>
+
+      <a href="#" class="resource-item">
+        <div class="res-icon" style="background:#FFE4E6;">💡</div>
+        <div class="res-info">
+          <span class="res-tag" style="background:#FFE4E6;color:#BE123C;">Free Checklist</span>
+          <div class="res-title">The financial freedom checklist</div>
+          <div class="res-desc">30 milestones on the path to financial independence — check off where you are and what's next.</div>
+        </div>
+        <div class="res-arrow">→</div>
+      </a>
+
+      <a href="#" class="resource-item">
+        <div class="res-icon" style="background:#FEF3C7;">📊</div>
+        <div class="res-info">
+          <span class="res-tag" style="background:#FEF3C7;color:#92400E;">Free Tracker</span>
+          <div class="res-title">Debt payoff tracker</div>
+          <div class="res-desc">List all your debts, pick your payoff strategy, and track your progress to zero.</div>
+        </div>
+        <div class="res-arrow">→</div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- PODCAST -->
+  <section class="podcast-section">
+    <div class="section-title" style="margin-bottom:16px;">The podcast</div>
+    <div class="podcast-card">
+      <div class="podcast-art">🎙</div>
+      <div class="podcast-body">
+        <div class="podcast-label">Now streaming</div>
+        <div class="podcast-title">Married to the Money Podcast</div>
+        <div class="podcast-desc">Real talk on money, mindset, and freedom — from women who've been there. New episodes every week covering everything from breaking out of debt to building generational wealth.</div>
+        <div class="podcast-links">
+          <a href="#" class="podcast-link">🎵 Spotify</a>
+          <a href="#" class="podcast-link">🍎 Apple Podcasts</a>
+          <a href="#" class="podcast-link">▶️ YouTube</a>
+          <a href="#" class="podcast-link">🌐 All platforms</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRANTS & FUNDING -->
+  <section class="grants-section">
+    <div class="section-header">
+      <h2 class="section-title">Funding & grants for women</h2>
+    </div>
+    <p style="font-size:14px;color:var(--text-soft);margin-bottom:4px;">Updated monthly · 45+ countries covered</p>
+    <div class="grants-grid">
+
+      <a href="#" class="grant-card">
+        <span class="grant-region" style="background:#FCE7F3;color:#BE185D;">🌎 USA</span>
+        <div class="grant-title">SBA Women-Owned Business Grants</div>
+        <div class="grant-desc">Federal and state grants available to women-owned small businesses across the US.</div>
+        <div class="grant-footer">
+          <span class="grant-update">Updated April 2026</span>
+          <span class="grant-arrow">→</span>
+        </div>
+      </a>
+
+      <a href="#" class="grant-card">
+        <span class="grant-region" style="background:#F3E8FF;color:#7C3AED;">🌍 Global</span>
+        <div class="grant-title">IFC Women Entrepreneurs Finance</div>
+        <div class="grant-desc">International Finance Corporation funding programs for women entrepreneurs in developing markets.</div>
+        <div class="grant-footer">
+          <span class="grant-update">Updated March 2026</span>
+          <span class="grant-arrow">→</span>
+        </div>
+      </a>
+
+      <a href="#" class="grant-card">
+        <span class="grant-region" style="background:#FFE4E6;color:#BE123C;">🌍 Africa</span>
+        <div class="grant-title">African Women's Development Fund</div>
+        <div class="grant-desc">Grants and capacity-building support for women-led initiatives across the African continent.</div>
+        <div class="grant-footer">
+          <span class="grant-update">Updated April 2026</span>
+          <span class="grant-arrow">→</span>
+        </div>
+      </a>
+
+      <a href="#" class="grant-card">
+        <span class="grant-region" style="background:#FEF3C7;color:#92400E;">🌏 Asia</span>
+        <div class="grant-title">Asia Foundation Women's Empowerment</div>
+        <div class="grant-desc">Funding and resources for women's economic empowerment programs across Asia-Pacific regions.</div>
+        <div class="grant-footer">
+          <span class="grant-update">Updated March 2026</span>
+          <span class="grant-arrow">→</span>
+        </div>
+      </a>
+
+      <a href="#" class="grant-card">
+        <span class="grant-region" style="background:#FDF4FF;color:#A21CAF;">🌎 Canada</span>
+        <div class="grant-title">BDC Women in Business Initiative</div>
+        <div class="grant-desc">Business Development Bank of Canada grants and loans specifically for women entrepreneurs.</div>
+        <div class="grant-footer">
+          <span class="grant-update">Updated April 2026</span>
+          <span class="grant-arrow">→</span>
+        </div>
+      </a>
+
+      <a href="#" class="grant-card">
+        <span class="grant-region" style="background:#FCE7F3;color:#BE185D;">🌍 Europe</span>
+        <div class="grant-title">EU Women Entrepreneurship Grants</div>
+        <div class="grant-desc">European Union funding programs supporting women-led startups and small businesses across member states.</div>
+        <div class="grant-footer">
+          <span class="grant-update">Updated March 2026</span>
+          <span class="grant-arrow">→</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter-section">
+    <div class="newsletter-inner">
+      <h2>Get the real talk in your inbox.</h2>
+      <p>Weekly insights on money, mindset, and building your financial freedom — no fluff, no spam.</p>
+      <div class="newsletter-form">
+        <input type="email" placeholder="Your email address" />
+        <button type="button">Subscribe</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="index.html" class="footer-logo">Married to <span>the Money</span></a>
+    <div class="footer-links">
+      <a href="courses.html">Learn</a>
+      <a href="tools.html">Tools</a>
+      <a href="resources.html">Resources</a>
+      <a href="blog.html">Blog</a>
+    </div>
+    <div class="footer-copy">© 2026 Married to the Money. All rights reserved.</div>
+  </footer>
+
+  <script>
+    const pills = document.querySelectorAll('.filter-pill');
+    pills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        pills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+      });
+    });
+  </script>
+
+</body>
+</html>
